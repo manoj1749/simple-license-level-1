@@ -41,15 +41,10 @@ public class Program
             Array.Copy(buffer, data, received);
             string text = Encoding.ASCII.GetString(data);
             Console.WriteLine("Received: {0}", text);
-            string license = Convert.ToBase64String(data);
-            if (license == "MTIzNDcyMzA5NTcyMzkwNTM=")
+            string rec = Convert.ToBase64String(data);
+            if (rec == "1")
             {
                 byte[] msg = Encoding.ASCII.GetBytes("cyberchaze{35#xmYii&PY5#ch#gH^6ey}");
-                clientSocket.Send(msg, msg.Length, 0);
-            }
-            else
-            {
-                byte[] msg = Encoding.ASCII.GetBytes("Invalid License Key");
                 clientSocket.Send(msg, msg.Length, 0);
             }
             //byte[] response = Encoding.ASCII.GetBytes("cyberchaze{35#xmYii&PY5#ch#gH^6ey}");
