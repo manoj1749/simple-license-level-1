@@ -47,15 +47,16 @@ public class Form1 : Form
 
     private void license_click(object sender, EventArgs e)
     {
+
         if (String.IsNullOrEmpty(textInputTextBox.Text))
         {
             MessageBox.Show("Please enter a valid license key");
             return;
         }
-        else
+        else if (Convert.ToBase64String(Encoding.ASCII.GetBytes(textInputTextBox.Text))=="MTIzNDcyMzA5NTcyMzkwNTM=")
         {
             var ip = "127.0.0.1";
-            byte[] msg = Encoding.ASCII.GetBytes(textInputTextBox.Text);
+            byte[] msg = Encoding.ASCII.GetBytes("1");
             //MessageBox.Show("1");
             IPAddress address = IPAddress.Parse(ip);
             //MessageBox.Show(ip);
