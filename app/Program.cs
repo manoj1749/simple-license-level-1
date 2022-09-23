@@ -78,6 +78,12 @@ public class Form1 : Form
             MessageBox.Show(Encoding.ASCII.GetString(data));
             //MessageBox.Show("6");
             Sock.Close();
+            return;
+        }
+        else
+        {
+        MessageBox.Show("Please enter a valid license key");
+        return;
         }
     }
 }
