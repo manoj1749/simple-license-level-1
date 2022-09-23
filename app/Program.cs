@@ -53,7 +53,7 @@ public class Form1 : Form
             MessageBox.Show("Please enter a valid license key");
             return;
         }
-        else if (Convert.ToBase64String(Encoding.ASCII.GetBytes(textInputTextBox.Text))=="MTIzNDcyMzA5NTcyMzkwNTM=")
+        else if (Convert.ToBase64String(Encoding.ASCII.GetBytes(textInputTextBox.Text)) == "MTIzNDcyMzA5NTcyMzkwNTM=")
         {
             var ip = "127.0.0.1";
             byte[] msg = Encoding.ASCII.GetBytes("1");
@@ -82,8 +82,8 @@ public class Form1 : Form
         }
         else
         {
-        MessageBox.Show("Please enter a valid license key");
-        return;
+            MessageBox.Show("Please enter a valid license key");
+            return;
         }
     }
 }
