@@ -42,10 +42,9 @@ public class Program
             Console.WriteLine("Received: {0}", text);
             if (text == "1")
             {
-                byte[] msg = Encoding.ASCII.GetBytes("cyberchaze{q1w&2e3#r4t5A^y6#u7i%8o9p0}");
+                byte[] msg = Encoding.ASCII.GetBytes("cyberchaze{}");
                 clientSocket.Send(msg, msg.Length, 0);
             }
-            //byte[] response = Encoding.ASCII.GetBytes("cyberchaze{35#xmYii&PY5#ch#gH^6ey}");
             //Console.WriteLine(Encoding.ASCII.GetString(response));
             //clientSocket.Send(response);
             clientSocket.Close();
