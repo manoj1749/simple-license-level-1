@@ -1,15 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Security.Cryptography;
+﻿using System.Text;
 using System.Net;
 using System.Net.Sockets;
-using System.Collections;
-using System.Reflection;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-// To be removed from obfuscated build
-using System.Numerics;
-
 namespace appgui;
 
 
@@ -17,29 +8,55 @@ public class Form1 : Form
 {
     public Button button1;
     public Button button2;
+    public TextBox ipBox;
+    public TextBox portBox;
     public TextBox textInputTextBox;
     public Button textInputeButton;
     //public bool license_valid;
     //public MainMenu Menu;
     public Form1()
     {
-        Label ip_label = new Label();
-        ip_label.Text = "License Key";
-        ip_label.Location = new Point(25, 30);
-        ip_label.AutoSize = true;
-        ip_label.Font = new Font("Calibri", 10);
-        ip_label.Padding = new Padding(6);
-        this.Controls.Add(ip_label);
+        Label ipLabel = new Label();
+        ipLabel.Text = "IP Address";
+        ipLabel.Location = new Point(10, 10);
+        ipLabel.AutoSize = true;
+        ipLabel.Font = new Font("Calibri", 10);
+        this.Controls.Add(ipLabel);
+
+        ipBox = new TextBox();
+        ipBox.Location = new Point(90, 9);
+        ipBox.Size = new Size(150, 20);
+        this.Controls.Add(ipBox);
+
+        Label portLabel = new Label();
+        portLabel.Text = "Port";
+        portLabel.Location = new Point(35, 40);
+        portLabel.AutoSize = true;
+        portLabel.Font = new Font("Calibri", 10);
+        this.Controls.Add(portLabel);
+
+        portBox = new TextBox();
+        portBox.Location = new Point(90, 45);
+        portBox.Size = new Size(120, 20);
+        this.Controls.Add(portBox);
+
+        Label key_label = new Label();
+        key_label.Text = "License Key";
+        key_label.Location = new Point(10, 50);
+        key_label.AutoSize = true;
+        key_label.Font = new Font("Calibri", 10);
+        key_label.Padding = new Padding(6);
+        this.Controls.Add(key_label);
 
         textInputTextBox = new TextBox();
-        textInputTextBox.Location = new Point(110, 30);
+        textInputTextBox.Location = new Point(110, 50);
         textInputTextBox.Size = new Size(120, 20);
         this.Controls.Add(textInputTextBox);
 
-        Size = new Size(300, 150);
+        Size = new Size(350, 300);
         button2 = new Button();
         button2.Size = new Size(60, 25);
-        button2.Location = new Point(120, 60);
+        button2.Location = new Point(120, 90);
         button2.Text = "Run";
         this.Controls.Add(button2);
         button2.Click += new EventHandler(license_click);
@@ -47,7 +64,7 @@ public class Form1 : Form
 
     private void license_click(object sender, EventArgs e)
     {
-
+        MessageBox.Show("ip address " + ipBox.Text);
         if (String.IsNullOrEmpty(textInputTextBox.Text))
         {
             MessageBox.Show("Please enter a valid license key");
