@@ -10,12 +10,13 @@ public class Form1 : Form
     public TextBox ipBox;
     public TextBox portBox;
     public TextBox textInputTextBox;
+    public TextBox licenseKeyBox;
     public Button textInputeButton;
     //public bool license_valid;
     //public MainMenu Menu;
     public Form1()
     {
-        Size = new Size(280, 250);
+        Size = new Size(280, 200);
         Label ip_label = new Label();
         ip_label.Text = "IP";
         ip_label.Location = new Point(18, 20);
@@ -44,15 +45,20 @@ public class Form1 : Form
 
         Label license = new Label();
         license.Text = "License";
-        license.Location = new Point(18, 50);
+        license.Location = new Point(18, 70);
         license.AutoSize = true;
         license.Font = new Font("Calibri", 10);
         license.Padding = new Padding(6);
         this.Controls.Add(license);
 
+        licenseKeyBox = new TextBox();
+        licenseKeyBox.Location = new Point(80, 73);
+        licenseKeyBox.Size = new Size(150, 90);
+        this.Controls.Add(licenseKeyBox);
+
         button = new Button();
         button.Size = new Size(60, 20);
-        button.Location = new Point(140, 142);
+        button.Location = new Point(110, 120);
         button.Text = "Run";
         this.Controls.Add(button);
         button.Click += new EventHandler(license_click);
@@ -64,19 +70,29 @@ public class Form1 : Form
         MessageBox.Show("ip address " + ipBox.Text);
         if (String.IsNullOrEmpty(textInputTextBox.Text))
         {
-            MessageBox.Show("Please enter a valid license key");
+            MessageBox.Show("Please enter a IP address");
+            return;
+        }
+        else if (String.IsNullOrEmpty(portBox.Text))
+        {
+            MessageBox.Show("Please enter a port");
+            return;
+        }
+        else if (String.IsNullOrEmpty(licenseKeyBox.Text))
+        {
+            MessageBox.Show("Please enter a license key");
             return;
         }
         else if (Convert.ToBase64String(Encoding.ASCII.GetBytes(textInputTextBox.Text)) == "MTIzNDcyMzA5NTcyMzkwNTM=")
         {
-            var ip = "127.0.0.1";
+            var ip = ipBox.Text;
             byte[] msg = Encoding.ASCII.GetBytes("1");
             //MessageBox.Show("1");
             IPAddress address = IPAddress.Parse(ip);
             //MessageBox.Show(ip);
             //MessageBox.Show(address.ToString());
             //MessageBox.Show("2");
-            IPEndPoint endPoint = new IPEndPoint(address, 8080);
+            IPEndPoint endPoint = new IPEndPoint(address, Convert.ToInt32(portBox.Text));
             //MessageBox.Show(endPoint.ToString());
             //MessageBox.Show("3");
             Socket Sock = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
