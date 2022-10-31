@@ -42,10 +42,18 @@ public class Form1 : Form
         portBox.Size = new Size(40, 30);
         this.Controls.Add(portBox);
 
+        Label license = new Label();
+        license.Text = "License";
+        license.Location = new Point(18, 50);
+        license.AutoSize = true;
+        license.Font = new Font("Calibri", 10);
+        license.Padding = new Padding(6);
+        this.Controls.Add(license);
+
         button = new Button();
         button.Size = new Size(60, 20);
         button.Location = new Point(140, 142);
-        button.Text = "License";
+        button.Text = "Run";
         this.Controls.Add(button);
         button.Click += new EventHandler(license_click);
 
