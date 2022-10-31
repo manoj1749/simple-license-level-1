@@ -11,7 +11,6 @@ public class Form1 : Form
     public TextBox portBox;
     public TextBox textInputTextBox;
     public TextBox licenseKeyBox;
-    public Button textInputeButton;
     //public bool license_valid;
     //public MainMenu Menu;
     public Form1()
@@ -67,8 +66,7 @@ public class Form1 : Form
 
     private void license_click(object sender, EventArgs e)
     {
-        MessageBox.Show("ip address " + ipBox.Text);
-        if (String.IsNullOrEmpty(textInputTextBox.Text))
+        if (String.IsNullOrEmpty(ipBox.Text))
         {
             MessageBox.Show("Please enter a IP address");
             return;
@@ -83,29 +81,22 @@ public class Form1 : Form
             MessageBox.Show("Please enter a license key");
             return;
         }
-        else if (Convert.ToBase64String(Encoding.ASCII.GetBytes(textInputTextBox.Text)) == "MTIzNDcyMzA5NTcyMzkwNTM=")
+        else if (Convert.ToBase64String(Encoding.ASCII.GetBytes(licenseKeyBox.Text)) == "MTIzNDcyMzA5NTcyMzkwNTM=")
         {
-            var ip = ipBox.Text;
-            byte[] msg = Encoding.ASCII.GetBytes("1");
-            //MessageBox.Show("1");
-            IPAddress address = IPAddress.Parse(ip);
-            //MessageBox.Show(ip);
-            //MessageBox.Show(address.ToString());
-            //MessageBox.Show("2");
+            IPAddress address = IPAddress.Parse(ipBox.Text);
             IPEndPoint endPoint = new IPEndPoint(address, Convert.ToInt32(portBox.Text));
-            //MessageBox.Show(endPoint.ToString());
-            //MessageBox.Show("3");
             Socket Sock = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            //MessageBox.Show("4");
             Sock.Connect(endPoint);
-            //MessageBox.Show(endPoint.ToString());
-            //MessageBox.Show("5");
-            Sock.Send(msg, msg.Length, 0);
+            byte[] snd_buffer = new byte[1];
+            //snd_buffer[0] = this.license_hash;
+            snd_buffer[0] = 0xfe;
+            Sock.Send(snd_buffer, 1, 0);
             byte[] buffer = new byte[1024];
-            int recieved = Sock.Receive(buffer);
-            byte[] data = new byte[recieved];
-            Array.Copy(buffer, data, recieved);
-            MessageBox.Show(Encoding.ASCII.GetString(data));
+            int received = Sock.Receive(buffer);
+            Console.WriteLine("Received: {0}", Encoding.ASCII.GetString(buffer));
+            MessageBox.Show(Encoding.ASCII.GetString(buffer));
+            //Console.WriteLine(text);
+            //MessageBox.Show(Encoding.ASCII.GetString(data));
             //MessageBox.Show("6");
             Sock.Close();
             return;
