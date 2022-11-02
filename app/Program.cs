@@ -88,16 +88,11 @@ public class Form1 : Form
             Socket Sock = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             Sock.Connect(endPoint);
             byte[] snd_buffer = new byte[1];
-            //snd_buffer[0] = this.license_hash;
-            snd_buffer[0] = 0xfe;
-            Sock.Send(snd_buffer, 1, 0);
+            snd_buffer = Encoding.UTF8.GetBytes("a9402a2e54a884a873945ee2bf38cb7b");
+            Sock.Send(snd_buffer);
             byte[] buffer = new byte[1024];
             int received = Sock.Receive(buffer);
-            Console.WriteLine("Received: {0}", Encoding.ASCII.GetString(buffer));
             MessageBox.Show(Encoding.ASCII.GetString(buffer));
-            //Console.WriteLine(text);
-            //MessageBox.Show(Encoding.ASCII.GetString(data));
-            //MessageBox.Show("6");
             Sock.Close();
             return;
         }
